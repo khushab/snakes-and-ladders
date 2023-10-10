@@ -1,22 +1,33 @@
 const express = require("express");
 const cors = require("cors");
-
+const socketIo = require("socket.io");
+const http = require("http");
 require("./db/mongoose");
 const routes = require("./routes");
-const app = express();
-const port = process.env.PORT || 3200;
+const onConnection = require("./socket");
 
-//middleware for maintanance
-// app.use((req, res) => {
-//     res.status(503).send("Server in maintainance. We'll be back soon!")
-// })
+const app = express();
+const port = process.env.PORT || 3100;
+
+const server = http.createServer(app);
+
 app.use(cors());
 app.use(express.json());
+process.setMaxListeners(0);
 
 app.get("/health-check", (req, res) => res.send("API is running"));
 
 app.use("/api", routes);
 
-app.listen(port, () => {
+const io = socketIo(server, {
+  cors: {
+    origin: "*",
+  },
+});
+
+io.disconnectSockets();
+io.on("connection", (socket) => onConnection(io, socket));
+
+server.listen(port, () => {
   console.log("server is running on port " + port);
 });

@@ -6,6 +6,7 @@ import ErrorPage from "./pages/ErrorPage";
 import { useContext, useEffect, useState } from "react";
 import { getLoggedInUser } from "./api";
 import { AppContext } from "./contexts/appContext";
+import MultiplayerMatch from "./pages/MultiplayerMatch";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -28,6 +29,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/match" element={<Match />} />
+        <Route path="/multiplayerMatch" element={<MultiplayerMatch />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Router>

@@ -6,7 +6,7 @@ import {
   removeAuthTokenFromLocalStorage,
 } from "./utils";
 
-const API_BASE_URL = process.env.BASE_URL || "http://localhost:3200/api";
+const API_BASE_URL = process.env.BASE_URL || "http://localhost:3100/api";
 
 // Function to register
 export const register = async (name, username, password) => {
@@ -160,6 +160,23 @@ export const deleteSavedMatch = async (id) => {
   }
 };
 
+export const saveScore = async (score) => {
+  try {
+    const token = getAuthTokenFromLocalStorage();
+
+    if (!token) {
+      throw new Error("User not logged in");
+    }
+    axios.defaults.headers.common["Authorization"] = token;
+    const response = await axios.post(
+      `${API_BASE_URL}/scores/saveUserScore/`,
+      score
+    );
+    const { data } = response;
+  } catch (error) {
+    throw error;
+  }
+};
 export const getLeaderboard = async (id) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/scores/getLeaderboard`);

@@ -35,7 +35,7 @@ const Home = () => {
 
   const handlePlayOnline = () => {
     if (!user) setIsAuthFormModalOpen(true);
-    // else navigate("/match");
+    else navigate("/multiplayerMatch");
   };
   const getUsersSavedMatches = async () => {
     const savedMatches = await getSavedMatches();
