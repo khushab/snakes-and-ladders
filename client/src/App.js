@@ -5,11 +5,11 @@ import Match from "./pages/Match";
 import ErrorPage from "./pages/ErrorPage";
 import { useContext, useEffect, useState } from "react";
 import { getLoggedInUser } from "./api";
-import { UserContext } from "./contexts/userContext";
+import { AppContext } from "./contexts/appContext";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const { setUser } = useContext(UserContext);
+  const { setUser } = useContext(AppContext);
 
   const getUserDetails = async () => {
     const user = await getLoggedInUser();

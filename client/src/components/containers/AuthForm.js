@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { login, register } from "../../api";
-import { UserContext } from "../../contexts/userContext";
+import { AppContext } from "../../contexts/appContext";
 
 function AuthForm({ closeModal }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -11,7 +11,7 @@ function AuthForm({ closeModal }) {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const { setUser } = useContext(UserContext);
+  const { setUser } = useContext(AppContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

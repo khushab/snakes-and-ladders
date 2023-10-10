@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Modal from "../components/reusable/Modal";
 import AuthForm from "../components/containers/AuthForm";
-import { UserContext } from "../contexts/userContext";
+import { AppContext } from "../contexts/appContext";
 import {
   deleteSavedMatch,
   getLeaderboard,
@@ -13,7 +13,7 @@ import { SavedMatches } from "../components/containers/SavedMatches";
 
 const Home = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(AppContext);
 
   const [isLoading, setIsLoading] = useState(true);
 
