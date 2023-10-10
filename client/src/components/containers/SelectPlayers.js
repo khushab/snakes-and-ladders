@@ -1,5 +1,5 @@
 import React from "react";
-import PlayerPos from "../PlayerPos";
+import PlayerPos from "../match/PlayerPos";
 
 const SelectPlayers = ({ onSelectPlayer }) => {
   const MAX_PLAYERS = 4;

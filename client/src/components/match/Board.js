@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Tile from "../Tile";
-import PlayerPos from "../PlayerPos";
+import Tile from "./Tile";
+import PlayerPos from "./PlayerPos";
 import s1 from "../../images/snakes/s1.png";
 import s2 from "../../images/snakes/s2.png";
 import s3 from "../../images/snakes/s3.png";
