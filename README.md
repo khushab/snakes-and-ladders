@@ -1,5 +1,6 @@
-Live: https://snakes-and-ladders-frontend.vercel.app/
-(NOTE: Play online feature will not work as vercel does not support socket.io)
+# Live: https://snakes-and-ladders-frontend.vercel.app/
+
+(Play online feature will not work as vercel does not support socket.io, please install it locally to use multiplayer)
 
 
 
