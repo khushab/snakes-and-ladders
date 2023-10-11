@@ -9,7 +9,6 @@ const register = async (req, res) => {
 
     res.status(201).send({ success: true, user, token });
   } catch (error) {
-    console.log(error);
     if (error.code === 11000) {
       return res
         .status(400)
@@ -40,9 +39,6 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
   try {
     const user = req.user;
-    console.log(user);
-    console.log(user._id);
-    console.log(user.name);
     user.token = null;
 
     await user.save();

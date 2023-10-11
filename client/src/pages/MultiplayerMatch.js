@@ -9,7 +9,9 @@ import DiceRoll from "../components/match/DiceRoll";
 import { useNavigate } from "react-router-dom";
 import Confirmation from "../components/containers/Confirmation";
 import { saveScore } from "../api";
-const socket = io.connect("http://localhost:3100");
+
+const API_URL = process.env.REACT_APP_API_URL;
+const socket = io.connect(API_URL);
 
 const MultiplayerMatch = () => {
   const navigate = useNavigate();
@@ -196,17 +198,15 @@ const MultiplayerMatch = () => {
       setShowDiceRoll(false);
 
       //generate a random number between 1 and 6
-      const diceNum = Math.ceil(Math.random() * 6);
+      // const diceNum = Math.ceil(Math.random() * 6);
+      const diceNum = 3;
 
       const player = currPlayer.playerPosVal;
 
-      console.log(diceNum, player, "diceNum, player");
-
-      // If score goes above 100 then dont move the player
-
+      // If score goes above 100 then dont move the curr player
       if (diceNum + playersPos[player] > 100) {
         setDisableRoll(false);
-        // moveToNextPlayer();
+        socket.emit("send_chance", { currPlayer, diceNum });
         return;
       }
       animateMovePlayer(diceNum, player);
@@ -215,8 +215,6 @@ const MultiplayerMatch = () => {
 
   const animateMovePlayer = (diceNum, player, lastPlayer) => {
     setDiceNumSrc(getDiceNumberImageSrc(diceNum));
-    // console.log("INSIDE ANIMATE MOVE PLAYER");
-    // console.log(diceNum, player, lastPlayer, currPlayer);
     for (let i = 1; i <= diceNum + 2; i++) {
       setTimeout(() => {
         if (
@@ -236,8 +234,7 @@ const MultiplayerMatch = () => {
           }
           if (lastPlayer) {
             const nextPlayer = getNextPlayer(lastPlayer.playerPosVal);
-            console.log(nextPlayer, currPlayer.playerPosVal, "nextPlayer");
-
+            checkForSnakesLaddersAndWinner(diceNum, lastPlayer);
             if (nextPlayer === currPlayer.playerPosVal) {
               setIsCurrPlayerChance(true);
             }
@@ -247,8 +244,10 @@ const MultiplayerMatch = () => {
     }
   };
 
-  const checkForSnakesLaddersAndWinner = (diceNum) => {
-    const currPlayerPos = currPlayer.playerPosVal;
+  const checkForSnakesLaddersAndWinner = (diceNum, player) => {
+    const currPlayerPos = player
+      ? player.playerPosVal
+      : currPlayer.playerPosVal;
     const currPos = playersPos[currPlayerPos];
     const nextPos = currPos + diceNum;
 
@@ -257,7 +256,6 @@ const MultiplayerMatch = () => {
     } else if (snakes[nextPos]) {
       movePlayer(currPlayerPos, null, snakes[nextPos]);
     }
-    console.log(nextPos, "NEXT POSITION");
     if (nextPos === 100 || ladders[nextPos] === 100) {
       setIsWinnerModalOpen(true);
       socket.emit("send_winner", currPlayer);

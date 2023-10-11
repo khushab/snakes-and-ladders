@@ -14,7 +14,7 @@ const Tile = ({ num, index, playerPos }) => {
   return (
     <div
       className={
-        "w-8 h-8 md:w-20 md:h-20 border flex items-center justify-center font-medium" +
+        "w-20 h-20 border flex items-center justify-center font-medium" +
         (index % 2 === 0 ? " bg-red-300 text-white " : " bg-gray-100")
       }
     >

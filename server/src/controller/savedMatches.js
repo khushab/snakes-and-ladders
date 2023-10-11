@@ -54,8 +54,6 @@ const getSavedMatch = async (req, res) => {
   try {
     const id = req.params.id;
 
-    console.log(id);
-
     const result = await SavedMatches.findById(id);
 
     res.status(201).send({ success: true, result });

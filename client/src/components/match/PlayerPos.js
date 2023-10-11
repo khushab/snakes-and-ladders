@@ -19,7 +19,7 @@ const PlayerPos = ({ pos }) => {
   return (
     <div
       className={
-        "rounded-full flex items-center justify-center text-[8px] md:text-base md:p-2 text-white z-50 " +
+        "rounded-full flex items-center justify-center text-base p-2 text-white z-50 " +
         getPlayerPosColor()
       }
     >

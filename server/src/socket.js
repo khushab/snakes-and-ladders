@@ -4,7 +4,6 @@ const findingPlayersFor4 = [];
 let playingArr = [];
 
 const onConnection = (io, socket) => {
-  console.log("New client connected", socket.id);
   socket.on("find_match", (userData) => {
     if (userData.numOfPlayers === 2) {
       findingPlayersFor2.push(userData);
@@ -77,7 +76,6 @@ const removeFinishedMatchObjectFromPlayingArr = (winner) => {
         player.p4._id !== winner._id
     );
   }
-  console.log(playingArr, "playingArr");
 };
 
 module.exports = onConnection;

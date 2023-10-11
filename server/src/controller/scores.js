@@ -32,7 +32,7 @@ const saveUserScore = async (req, res) => {
       losses: (existingScore?.losses ?? 0) + losses,
       score: (existingScore?.score ?? 0) + (wins - losses),
     };
-    console.log(updateData);
+
     let result;
 
     if (existingScore) {

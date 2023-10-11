@@ -6,12 +6,17 @@ import {
   removeAuthTokenFromLocalStorage,
 } from "./utils";
 
-const API_BASE_URL = process.env.BASE_URL || "http://localhost:3100/api";
+const API_BASE_URL =
+  process.env.REACT_APP_API_URL + "api" || "http://localhost:3200/api";
+
+const axiosInstance = axios.create({
+  baseURL: API_BASE_URL,
+});
 
 // Function to register
 export const register = async (name, username, password) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/users/register`, {
+    const response = await axiosInstance.post(`/users/register`, {
       name,
       username,
       password,
@@ -31,7 +36,7 @@ export const register = async (name, username, password) => {
 // Function to log in
 export const login = async (username, password) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/users/login`, {
+    const response = await axiosInstance.post(`/users/login`, {
       username,
       password,
     });
@@ -54,8 +59,8 @@ export const logout = async () => {
     const token = getAuthTokenFromLocalStorage();
     removeAuthTokenFromLocalStorage();
     if (token) {
-      axios.defaults.headers.common["Authorization"] = token;
-      const { data } = await axios.get(`${API_BASE_URL}/users/logout`);
+      axiosInstance.defaults.headers.common["Authorization"] = token;
+      const { data } = await axiosInstance.get(`/users/logout`);
       return data;
     }
   } catch (error) {
@@ -68,8 +73,8 @@ export const getLoggedInUser = async () => {
   try {
     const token = getAuthTokenFromLocalStorage();
     if (token) {
-      axios.defaults.headers.common["Authorization"] = token;
-      const response = await axios.get(`${API_BASE_URL}/users/getCurrUserData`);
+      axiosInstance.defaults.headers.common["Authorization"] = token;
+      const response = await axiosInstance.get(`/users/getCurrUserData`);
       const { data } = response;
       return data;
     }
@@ -87,8 +92,8 @@ export const saveMatch = async (playersPos, gameId) => {
       throw new Error("User not logged in");
     }
 
-    axios.defaults.headers.common["Authorization"] = token;
-    const response = await axios.post(`${API_BASE_URL}/savedMatches/save`, {
+    axiosInstance.defaults.headers.common["Authorization"] = token;
+    const response = await axiosInstance.post(`/savedMatches/save`, {
       playersPos,
       gameId,
     });
@@ -108,10 +113,8 @@ export const getSavedMatches = async () => {
       throw new Error("User not logged in");
     }
 
-    axios.defaults.headers.common["Authorization"] = token;
-    const response = await axios.get(
-      `${API_BASE_URL}/savedMatches/getSavedMatches`
-    );
+    axiosInstance.defaults.headers.common["Authorization"] = token;
+    const response = await axiosInstance.get(`/savedMatches/getSavedMatches`);
 
     const { data } = response;
     return data.result;
@@ -128,9 +131,9 @@ export const getSavedMatch = async (id) => {
       throw new Error("User not logged in");
     }
 
-    axios.defaults.headers.common["Authorization"] = token;
-    const response = await axios.get(
-      `${API_BASE_URL}/savedMatches/getSavedMatch/${id}`
+    axiosInstance.defaults.headers.common["Authorization"] = token;
+    const response = await axiosInstance.get(
+      `/savedMatches/getSavedMatch/${id}`
     );
 
     const { data } = response;
@@ -148,9 +151,9 @@ export const deleteSavedMatch = async (id) => {
       throw new Error("User not logged in");
     }
 
-    axios.defaults.headers.common["Authorization"] = token;
-    const response = await axios.delete(
-      `${API_BASE_URL}/savedMatches/getSavedMatch/${id}`
+    axiosInstance.defaults.headers.common["Authorization"] = token;
+    const response = await axiosInstance.delete(
+      `/savedMatches/getSavedMatch/${id}`
     );
 
     const { data } = response;
@@ -167,19 +170,17 @@ export const saveScore = async (score) => {
     if (!token) {
       throw new Error("User not logged in");
     }
-    axios.defaults.headers.common["Authorization"] = token;
-    const response = await axios.post(
-      `${API_BASE_URL}/scores/saveUserScore/`,
-      score
-    );
+    axiosInstance.defaults.headers.common["Authorization"] = token;
+    const response = await axiosInstance.post(`/scores/saveUserScore/`, score);
     const { data } = response;
+    return data;
   } catch (error) {
     throw error;
   }
 };
 export const getLeaderboard = async (id) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/scores/getLeaderboard`);
+    const response = await axiosInstance.get(`/scores/getLeaderboard`);
 
     const { data } = response;
     return data.result;

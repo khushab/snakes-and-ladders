@@ -2,12 +2,14 @@ const express = require("express");
 const cors = require("cors");
 const socketIo = require("socket.io");
 const http = require("http");
+require("dotenv").config();
+
 require("./db/mongoose");
-const routes = require("./routes");
 const onConnection = require("./socket");
+const routes = require("./routes");
 
 const app = express();
-const port = process.env.PORT || 3100;
+const port = process.env.PORT || 3200;
 
 const server = http.createServer(app);
 
@@ -26,6 +28,7 @@ const io = socketIo(server, {
 });
 
 io.disconnectSockets();
+
 io.on("connection", (socket) => onConnection(io, socket));
 
 server.listen(port, () => {

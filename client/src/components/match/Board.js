@@ -41,8 +41,8 @@ const Board = ({ playersPos, numberOfPlayers }) => {
   }, []);
 
   return (
-    <div className="w-full">
-      <div className="min-w-[200px] md:min-w-[600px] xl:min-w-[800px] relative">
+    <div className="">
+      <div className="min-w-[800px] relative">
         {boardArr.map((row, index) => {
           return (
             <div key={index} className="flex z-20">
@@ -59,20 +59,24 @@ const Board = ({ playersPos, numberOfPlayers }) => {
             </div>
           );
         })}
-        <img src={s1} alt="" className="absolute top-0 left-0" />
-        <img src={s2} alt="" className="absolute bottom-0 right-0" />
-        <img src={s3} alt="" className="absolute bottom-0 left-0 " />
-        <img src={s4} alt="" className="absolute top-[100px] right-[20px]" />
+        <img src={s1} alt="snake1" className="absolute top-0 left-0" />
+        <img src={s2} alt="snake2" className="absolute bottom-0 right-0" />
+        <img src={s3} alt="snake3" className="absolute bottom-0 left-0 " />
+        <img
+          src={s4}
+          alt="snank4"
+          className="absolute top-[100px] right-[20px]"
+        />
 
         <img
           src={l1}
-          alt=""
+          alt="ladder1"
           className="absolute top-[25px] right-[148px] transform rotate-[165deg] z-10"
         />
 
         <img
           src={l2}
-          alt=""
+          alt="ladder2"
           className="absolute bottom-[30px] left-[107px] rotate-[17deg] z-10"
         />
       </div>

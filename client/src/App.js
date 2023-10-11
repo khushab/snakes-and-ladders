@@ -12,17 +12,23 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const { setUser } = useContext(AppContext);
 
+  const [loadingMessage, setLoadingMessage] = useState("Loading...");
+
   const getUserDetails = async () => {
-    const user = await getLoggedInUser();
-    setUser(user);
-    setIsLoading(false);
+    try {
+      const user = await getLoggedInUser();
+      setUser(user);
+      setIsLoading(false);
+    } catch (error) {
+      setLoadingMessage("Our servers are down. Please try again later.");
+    }
   };
   useEffect(() => {
     getUserDetails();
   }, []);
 
   if (isLoading) {
-    return null;
+    return <h2 className="p-40 text-center text-2xl">{loadingMessage}</h2>;
   }
   return (
     <Router>
