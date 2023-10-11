@@ -1,5 +1,5 @@
 Live: https://snakes-and-ladders-frontend.vercel.app/
-NOTE: Play online feature will not work as vercel does not support socket.io
+(NOTE: Play online feature will not work as vercel does not support socket.io)
 
 
 
