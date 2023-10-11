@@ -2,7 +2,7 @@
 
 This is a snakes & ladders game web app made using MERN(Mongo, Express, React, Node) stack.
 
-# Live: https://snakes-and-ladders-frontend.vercel.app/
+## Live: https://snakes-and-ladders-frontend.vercel.app/
 
 Note: Play online feature will not work as vercel does not support socket.io, please install it locally to use multiplayer feature.
 
