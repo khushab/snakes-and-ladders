@@ -1,15 +1,16 @@
 {
   "version": 2,
+  "name": "snakes-and-ladders",
   "builds": [
     {
-      "src": "*.js",
+      "src": "index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/"
+      "dest": "/index.js"
     }
   ]
 }
