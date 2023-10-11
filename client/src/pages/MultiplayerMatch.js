@@ -200,8 +200,7 @@ const MultiplayerMatch = () => {
       setShowDiceRoll(false);
 
       //generate a random number between 1 and 6
-      // const diceNum = Math.ceil(Math.random() * 6);
-      const diceNum = 3;
+      const diceNum = Math.ceil(Math.random() * 6);
 
       const player = currPlayer.playerPosVal;
 
