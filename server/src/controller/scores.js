@@ -2,6 +2,7 @@ const Scores = require("../models/scores");
 
 const getLeaderboard = async (req, res) => {
   try {
+    // Get the top 10 players based on score in descending order of score
     const result = await Scores.find({})
       .sort({ score: -1 })
       .limit(10)
@@ -35,6 +36,7 @@ const saveUserScore = async (req, res) => {
 
     let result;
 
+    // Update the if the score exists, else create a new one
     if (existingScore) {
       result = await Scores.updateOne(
         { playerId },

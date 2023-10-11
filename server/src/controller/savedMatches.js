@@ -10,6 +10,8 @@ const saveMatch = async (req, res) => {
     });
 
     let result;
+
+    // update the saved game if it exists, else create a new one
     if (existingSavedGame) {
       result = await SavedMatches.updateOne(
         { _id: gameId },

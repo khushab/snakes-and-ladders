@@ -41,6 +41,7 @@ const onConnection = (io, socket) => {
   });
 };
 
+// Fill the playingArr with the match object
 const fillArrayBasedOnNumOfPlayers = (numOfPlayers, arr) => {
   const matchObj = {};
   for (let i = 0; i < numOfPlayers; i++) {
@@ -55,6 +56,7 @@ const fillArrayBasedOnNumOfPlayers = (numOfPlayers, arr) => {
   return matchObj;
 };
 
+// Remove the match object from playingArr once the match is finished
 const removeFinishedMatchObjectFromPlayingArr = (winner) => {
   if (winner.numOfPlayers === 2) {
     playingArr = playingArr.filter(

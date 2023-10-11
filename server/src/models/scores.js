@@ -16,6 +16,7 @@ const scoresSchema = new mongoose.Schema(
       default: 0,
     },
     score: {
+      // This is calculated by wins - losses
       type: Number,
       default: 0,
     },

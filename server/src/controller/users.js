@@ -2,9 +2,11 @@ const User = require("../models/users");
 
 const register = async (req, res) => {
   try {
+    // Register a new user
     const user = new User(req.body);
     await user.save();
 
+    // Generate token
     const token = await user.generateAuthToken();
 
     res.status(201).send({ success: true, user, token });
