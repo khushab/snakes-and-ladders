@@ -11,7 +11,7 @@ import Confirmation from "../components/containers/Confirmation";
 import { saveScore } from "../api";
 
 const API_URL = process.env.REACT_APP_API_URL;
-const socket = io.connect(API_URL);
+const socket = io(API_URL);
 
 const MultiplayerMatch = () => {
   const navigate = useNavigate();
@@ -101,6 +101,7 @@ const MultiplayerMatch = () => {
     require(`../images/diceImages/${num}.png`);
 
   useEffect(() => {
+    socket.open();
     socket.on("start_match", (playingArr) => {
       const userId = user._id;
       const foundPlayers = playingArr.find(
@@ -149,6 +150,7 @@ const MultiplayerMatch = () => {
       socket.off("start_match");
       socket.off("receive_chance");
       socket.off("receive_winner");
+      socket.close();
     };
   }, [socket, currPlayer, winner]);
 
