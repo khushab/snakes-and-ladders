@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 process.setMaxListeners(0);
 
-app.get("/health-check", (req, res) => res.send("API is running"));
+app.get("/", (req, res) => res.send("API is running"));
 
 app.use("/api", routes);
 
