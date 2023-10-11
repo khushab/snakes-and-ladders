@@ -6,8 +6,7 @@ import {
   removeAuthTokenFromLocalStorage,
 } from "./utils";
 
-const API_BASE_URL =
-  process.env.REACT_APP_API_URL + "api" || "http://localhost:3200/api";
+const API_BASE_URL = process.env.REACT_APP_API_URL + "api";
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
