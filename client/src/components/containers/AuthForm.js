@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { login, register } from "../../api";
+import { getSavedMatches, login, register } from "../../api";
 import { AppContext } from "../../contexts/appContext";
 
 function AuthForm({ closeModal }) {
@@ -26,6 +26,7 @@ function AuthForm({ closeModal }) {
         const userData = await register(fullName, username, password);
         setUser(userData);
       }
+      getSavedMatches();
       closeModal();
     } catch (error) {
       setErrorMessage(error.message);
