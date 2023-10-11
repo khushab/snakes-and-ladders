@@ -32,9 +32,3 @@ const Tile = ({ num, index, playerPos }) => {
 };
 
 export default Tile;
-
-/*
-Max number of players - 
-Single player - 
-
-*/

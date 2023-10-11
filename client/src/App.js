@@ -1,4 +1,3 @@
-import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Match from "./pages/Match";
@@ -12,6 +11,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const { setUser } = useContext(AppContext);
 
+  // Get the user detais if the user is logged in
   const getUserDetails = async () => {
     try {
       const user = await getLoggedInUser();
@@ -19,6 +19,7 @@ function App() {
     } catch (error) {}
     setIsLoading(false);
   };
+
   useEffect(() => {
     getUserDetails();
   }, []);

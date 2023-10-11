@@ -33,13 +33,21 @@ const Home = () => {
     }
   };
 
+  // Function to handle the play online button
   const handlePlayOnline = () => {
+    // If the user is not logged in, open the login modal
     if (!user) setIsAuthFormModalOpen(true);
     else navigate("/multiplayerMatch");
   };
+
+  // Function to get the saved matches of the user
   const getUsersSavedMatches = async () => {
-    const savedMatches = await getSavedMatches();
-    setSavedMatches(savedMatches);
+    try {
+      const savedMatches = await getSavedMatches();
+      setSavedMatches(savedMatches);
+    } catch (error) {
+      setSavedMatches([]);
+    }
   };
 
   const deleteUsersSavedMatch = async (id) => {
@@ -48,12 +56,17 @@ const Home = () => {
   };
 
   const getAndSetLeaderboard = async () => {
-    const result = await getLeaderboard();
-    setLeaderboard(result);
+    try {
+      const result = await getLeaderboard();
+      setLeaderboard(result);
+    } catch (error) {
+      setLeaderboard([]);
+    }
     setIsLoading(false);
   };
 
   const handlePlayVsBot = () => {
+    // If the user is not logged in, open the login modal
     if (!user) setIsAuthFormModalOpen(true);
     else navigate("/match");
   };
@@ -63,7 +76,9 @@ const Home = () => {
     getAndSetLeaderboard();
   }, []);
 
-  if (isLoading) return null;
+  if (isLoading) {
+    return <h2 className="p-40 text-center text-2xl">Loading...</h2>;
+  }
 
   return (
     <>
@@ -78,6 +93,7 @@ const Home = () => {
         </div>
       </div>
       <div className="max-w-2xl m-auto flex flex-col justify-center py-10 mt-6 px-5 shadow-md gap-5">
+        {/* Buttons starts */}
         <h2 className="text-2xl font-semibold text-center">
           Play Snakes & Ladders
         </h2>
@@ -96,8 +112,10 @@ const Home = () => {
           </button>
         )}
 
+        {/* Buttons ends */}
         <hr />
 
+        {/* Leaderboard starts */}
         <h2 className="text-xl font-semibold">Leaderboard</h2>
         <table>
           <thead>
@@ -121,7 +139,9 @@ const Home = () => {
             ))}
           </tbody>
         </table>
+        {/* Leaderboard ends */}
       </div>
+      {/* Modals starts */}
       <Modal
         isOpen={isAuthFormModalOpen}
         closeModal={() => setIsAuthFormModalOpen(false)}
@@ -140,6 +160,7 @@ const Home = () => {
           deleteUsersSavedMatch={deleteUsersSavedMatch}
         />
       </Modal>
+      {/* Modals ends */}
     </>
   );
 };

@@ -83,6 +83,7 @@ export const getLoggedInUser = async () => {
   }
 };
 
+// Function to get the logged in user details
 export const saveMatch = async (playersPos, gameId) => {
   try {
     const token = getAuthTokenFromLocalStorage();
@@ -104,6 +105,7 @@ export const saveMatch = async (playersPos, gameId) => {
   }
 };
 
+//  Function to get the saved matches
 export const getSavedMatches = async () => {
   try {
     const token = getAuthTokenFromLocalStorage();
@@ -122,6 +124,7 @@ export const getSavedMatches = async () => {
   }
 };
 
+//  Function to get a single saved matche
 export const getSavedMatch = async (id) => {
   try {
     const token = getAuthTokenFromLocalStorage();
@@ -142,6 +145,7 @@ export const getSavedMatch = async (id) => {
   }
 };
 
+//  Function to delete a single saved match
 export const deleteSavedMatch = async (id) => {
   try {
     const token = getAuthTokenFromLocalStorage();
@@ -162,6 +166,7 @@ export const deleteSavedMatch = async (id) => {
   }
 };
 
+//  Function to save the score
 export const saveScore = async (score) => {
   try {
     const token = getAuthTokenFromLocalStorage();
@@ -177,6 +182,8 @@ export const saveScore = async (score) => {
     throw error;
   }
 };
+
+//  Function to get the leaderboard
 export const getLeaderboard = async (id) => {
   try {
     const response = await axiosInstance.get(`/scores/getLeaderboard`);

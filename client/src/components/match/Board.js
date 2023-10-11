@@ -64,7 +64,7 @@ const Board = ({ playersPos, numberOfPlayers }) => {
         <img src={s3} alt="snake3" className="absolute bottom-0 left-0 " />
         <img
           src={s4}
-          alt="snank4"
+          alt="snake4"
           className="absolute top-[100px] right-[20px]"
         />
 

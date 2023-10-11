@@ -66,7 +66,6 @@ const Match = () => {
       const player = `p${currPlayer}`;
 
       // If score goes above 100 then dont move the player
-
       if (diceNum + playersPos[player] > 100) {
         setDisableRoll(false);
         moveToNextPlayer();
@@ -75,6 +74,7 @@ const Match = () => {
 
       setDiceNumSrc(getDiceNumberImageSrc(diceNum));
 
+      // Move the player one step at a time
       for (let i = 1; i <= diceNum + 2; i++) {
         setTimeout(() => {
           if (i <= diceNum) {
@@ -92,6 +92,7 @@ const Match = () => {
     }, 1000);
   };
 
+  // move to next player after the current player's chance is done
   const moveToNextPlayer = () => {
     if (currPlayer === numberOfPlayers) {
       setcurrPlayer(1);
@@ -104,11 +105,14 @@ const Match = () => {
     const currPos = playersPos[`p${currPlayer}`];
     const nextPos = currPos + diceNum;
 
+    // Checking if the player has landed on a snake or ladder
     if (ladders[nextPos]) {
       movePlayer(`p${currPlayer}`, null, ladders[nextPos]);
     } else if (snakes[nextPos]) {
       movePlayer(`p${currPlayer}`, null, snakes[nextPos]);
     }
+
+    // Checking if the player has won the game
     if (nextPos === 100 || ladders[nextPos] === 100) {
       setIsWinnerModalOpen(true);
       const savedGameId = searchParams.get("id");
@@ -117,6 +121,7 @@ const Match = () => {
     }
   };
 
+  // Check if the current game is a saved game and load it
   const checkAndGetSavedGame = async () => {
     try {
       const savedGameId = searchParams.get("id");
@@ -137,6 +142,7 @@ const Match = () => {
     }
   };
 
+  // Move the player to the given position
   const movePlayer = (player, moves, position) => {
     switch (player) {
       case "p1":
@@ -167,12 +173,15 @@ const Match = () => {
         break;
     }
   };
+
+  // Save the current game
   const saveUserMatch = async () => {
     const savedGameId = searchParams.get("id");
     await saveMatch(playersPos, savedGameId);
     navigate("/");
   };
 
+  // Reset the game
   const resetGame = () => {
     setPlayersPos({
       p1: 0,
@@ -201,7 +210,7 @@ const Match = () => {
   }, [currPlayer]);
 
   if (isLoading) {
-    return null;
+    return <h2 className="p-40 text-center text-2xl">Loading...</h2>;
   }
   if (numberOfPlayers === 0) {
     return (
@@ -238,6 +247,8 @@ const Match = () => {
           />
         </div>
       </div>
+
+      {/* Modals start */}
       <Modal
         isOpen={isPauseGameModalOpen}
         closeModal={() => setIsPauseGameModalOpen(false)}
@@ -288,6 +299,7 @@ const Match = () => {
           </button>
         </div>
       </Modal>
+      {/* Modals end */}
     </div>
   );
 };
