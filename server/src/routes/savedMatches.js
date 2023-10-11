@@ -8,8 +8,6 @@ const {
 } = require("../controller/savedMatches");
 const router = express.Router();
 
-router.route("/testMatch").get((req, res) => res.send("Test Match"));
-
 router.route("/save").post(auth, saveMatch);
 
 router.route("/getSavedMatches").get(auth, getSavedMatchesForUser);

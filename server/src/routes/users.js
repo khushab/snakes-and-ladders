@@ -5,8 +5,6 @@ const auth = require("../middlewares/auth");
 
 const userController = require("../controller/users");
 
-router.route("/testuser").get((req, res) => res.send("Test User"));
-
 router.route("/register").post(userController.register);
 
 router.route("/login").post(userController.login);
